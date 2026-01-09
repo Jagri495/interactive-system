@@ -31,7 +31,7 @@ public class ObjectConsumable : MonoBehaviour, IInteractable
         // 1. Check wet requirement
         if (requiresWet && !wetState.IsWet)
         {
-            Debug.Log($"{name} cannot be used unless wet!");
+            ThoughtEvents.OnThought?.Invoke("このままじゃ使えない…");
             return;
         }
 
@@ -53,6 +53,7 @@ public class ObjectConsumable : MonoBehaviour, IInteractable
         {
             case ConsumableType.Heal:
                 playerHealth.Heal(healAmount);
+                ThoughtEvents.OnThought?.Invoke("ちょっと良くなった気がする");
                 break;
 
             case ConsumableType.Cup:
